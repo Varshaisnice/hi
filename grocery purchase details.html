@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grocery Purchase Details</title>
+    <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .total {
+      font-weight: bold;
+    }
+    body{
+      background-color: aquamarine;
+    }
+    input{
+      background-color: palegreen;
+      
+    }
+    button{
+      
+      background-color: aqua;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grocery Purchase Details</h1>
+  <form id="purchaseForm">
+    <label for="item">Item:</label>
+    <input type="text" id="item" required>
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" min="1" required>
+    <br>
+    <label for="code">Item Code:</label>
+    <input type="text" id="code" required>
+    <br>
+    <label for="price">Item Price:</label>
+    <input type="number" id="price" min="0" step="0.01" required>
+    <br>
+    <button type="button" onclick="addPurchase()">Add Purchase</button>
+  </form>
+  <br>
+  <table id="purchaseTable">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Item Code</th>
+        <th>Item Price</th>
+      </tr>
+    </thead>
+    <tbody id="purchaseBody"></tbody>
+  </table>
+  <br>
+  <p class="total">Total Price Paid: <span id="totalPrice">0.00</span></p>
+
+  <script>
+    function addPurchase() {
+      var item = document.getElementById("item").value;
+      var quantity = document.getElementById("quantity").value;
+      var code = document.getElementById("code").value;
+      var price = document.getElementById("price").value;
+
+      var tableBody = document.getElementById("purchaseBody");
+      var newRow = tableBody.insertRow();
+
+      var cell1 = newRow.insertCell(0);
+      cell1.innerHTML = item;
+
+      var cell2 = newRow.insertCell(1);
+      cell2.innerHTML = quantity;
+
+      var cell3 = newRow.insertCell(2);
+      cell3.innerHTML = code;
+
+      var cell4 = newRow.insertCell(3);
+      cell4.innerHTML = price;
+
+      updateTotalPrice(parseFloat(price));
+      document.getElementById("purchaseForm").reset();
+    }
+
+    function updateTotalPrice(price) {
+      var totalPrice = document.getElementById("totalPrice");
+      var currentPrice = parseFloat(totalPrice.innerHTML);
+      totalPrice.innerHTML = (currentPrice + price).toFixed(2);
+    }
+  </script>
+</body>
+</html>
+
+
